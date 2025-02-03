@@ -15,6 +15,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideEffects } from '@ngrx/effects';
 import { pokemonReducer } from './store/pokemon/pokemon.reducer';
+import { PokemonEffects } from './store/pokemon/pokemon.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,7 +24,13 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     provideStore({ pokemon: pokemonReducer }),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    provideEffects()
-],
+    provideStoreDevtools({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      autoPause: true,
+      trace: false,
+      traceLimit: 75,
+    }),
+    provideEffects([PokemonEffects]),
+  ],
 };
