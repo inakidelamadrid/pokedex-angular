@@ -13,6 +13,8 @@ import {
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideEffects } from '@ngrx/effects';
+import { pokemonReducer } from './store/pokemon/pokemon.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,7 +22,8 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideStore(),
+    provideStore({ pokemon: pokemonReducer }),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-  ],
+    provideEffects()
+],
 };
