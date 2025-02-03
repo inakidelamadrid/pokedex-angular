@@ -1,0 +1,27 @@
+<div class="pokemon-container">
+    <div class="pokemon-grid">
+      <div *ngFor="let pokemon of pokemons" class="pokemon-card">
+        <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name">
+        <h3>{{ pokemon.name | titlecase }}</h3>
+        <div class="types">
+          <span *ngFor="let type of pokemon.types" class="type-badge {{type.type.name}}">
+            {{ type.type.name }}
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pagination">
+      <button 
+        [disabled]="currentPage === 1"
+        (click)="onPageChange(currentPage - 1)">
+        Previous
+      </button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button 
+        [disabled]="currentPage === totalPages"
+        (click)="onPageChange(currentPage + 1)">
+        Next
+      </button>
+    </div>
+  </div>
